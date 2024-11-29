@@ -1,0 +1,4 @@
+#!/bin/bash
+IMAGE_TAG=$(echo "local-${PWD##*/}" | tr '[:upper:]' '[:lower:]')
+docker build docker -t "$IMAGE_TAG"
+docker run -v $PWD:/app -p8888:8888 --group-add=users --rm -it $(docker build -q docker -t "$IMAGE_TAG") $@
